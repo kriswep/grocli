@@ -1,25 +1,38 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
+import { ThemeProvider } from 'styled-components';
+import { color, flexbox, typography, space } from 'styled-system';
 
-// const Container = styled.View`
-//   flex: 1;
-//   background-color: #fff;
-//   align-items: center;
-//   justify-content: center;
-// `;
+import theme from './src/theme';
+
+const Container = styled.View`
+  ${color};
+  ${flexbox};
+  ${space};
+`;
+
+const Info = styled.Text`
+  ${color};
+  ${typography};
+  ${space};
+`;
 
 export default function App() {
   return (
-    <View
-      css={`
-        flex: 1;
-        background-color: #fff;
-        align-items: center;
-        justify-content: center;
-      `}
-    >
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <ThemeProvider theme={theme}>
+      <Container
+        color="white"
+        bg="background"
+        alignItems="center"
+        justifyContent="center"
+        css={`
+          flex: 1;
+        `}
+      >
+        <Info color="text" fontSize="display" px="3">
+          Open up App.js to start working on your app!
+        </Info>
+      </Container>
+    </ThemeProvider>
   );
 }
