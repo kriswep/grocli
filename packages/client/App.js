@@ -1,17 +1,18 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import { Text, View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { color, flexbox, typography, space } from 'styled-system';
 
+import styled from './src/styled';
 import theme from './src/theme';
 
-const Container = styled.View`
+const Container = styled(View)`
   ${color};
   ${flexbox};
   ${space};
 `;
 
-const Info = styled.Text`
+const Info = styled(Text)`
   ${color};
   ${typography};
   ${space};
