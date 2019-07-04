@@ -1,20 +1,15 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
-import { color, flexbox, typography, space } from 'styled-system';
+import { color, flexbox, space } from 'styled-system';
 
 import styled from './src/styled';
 import theme from './src/theme';
+import GroceryList from './src/GroceryList';
 
 const Container = styled(View)`
   ${color};
   ${flexbox};
-  ${space};
-`;
-
-const Info = styled(Text)`
-  ${color};
-  ${typography};
   ${space};
 `;
 
@@ -30,9 +25,7 @@ export default function App() {
           flex: 1;
         `}
       >
-        <Info color="text" fontSize="display" px="3">
-          Open up App.js to start working on your app!
-        </Info>
+        <GroceryList />
       </Container>
     </ThemeProvider>
   );
