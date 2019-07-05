@@ -63,7 +63,7 @@ export default ({ addGrocery }) => {
           bg="transparent"
           accessibilityLabel="Add to your grocery list"
           onPress={saveGrocery}
-          mx={2}
+          px="2"
         >
           <Ionicons name="md-send" size={32} color="#29945b" />
         </AddButton>

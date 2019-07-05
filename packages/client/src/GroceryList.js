@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { space } from 'styled-system';
+import { space, layout, color } from 'styled-system';
 import uuid from 'uuid/v4';
 
 import styled from './styled';
@@ -10,6 +10,16 @@ import AddGrocery from './AddGrocery';
 const GroceryList = styled(FlatList)`
   ${space};
 `;
+
+const Separator = styled(View)`
+  ${space};
+  ${color};
+  ${layout};
+`;
+
+const ListSeparator = () => {
+  return <Separator height="1" bg="#CED0CE" ml="3" my="2" />;
+};
 
 const initialGroceries = [
   { id: uuid(), name: 'Banana' },
@@ -58,6 +68,7 @@ export default () => {
         renderItem={({ item }) => (
           <GroceryItem grocery={item} toggleGrocery={toggleGrocery} />
         )}
+        ItemSeparatorComponent={ListSeparator}
       />
       <AddGrocery addGrocery={addGrocery} />
     </View>
