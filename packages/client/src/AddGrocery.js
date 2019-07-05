@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
-import { TextInput, Button, KeyboardAvoidingView } from 'react-native';
-import { color, typography, space } from 'styled-system';
+import {
+  TextInput,
+  View,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from 'react-native';
+import { color, typography, space, flexbox, border } from 'styled-system';
+import { Ionicons } from '@expo/vector-icons';
 
 import styled from './styled';
+
+const AddContainer = styled(View)`
+  ${color};
+  ${space};
+  ${flexbox};
+  ${border};
+`;
 
 const GroceryInput = styled(TextInput)`
   ${color};
   ${typography};
   ${space};
+  ${flexbox};
 `;
 
-const AddButton = styled(Button)`
+const AddButton = styled(TouchableOpacity)`
   ${color};
   ${typography};
   ${space};
@@ -19,32 +33,41 @@ const AddButton = styled(Button)`
 export default ({ addGrocery }) => {
   const [groceryName, setGroceryName] = useState('');
   const saveGrocery = () => {
-    addGrocery(groceryName);
-    setGroceryName('');
+    if (groceryName.length > 0) {
+      addGrocery(groceryName);
+      setGroceryName('');
+    }
   };
   return (
     <KeyboardAvoidingView behavior="padding" enabled>
-      <GroceryInput
+      <AddContainer
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        borderRadius={3}
         p={2}
         m={2}
         bg="lightgray"
-        fontSize="display"
-        color="black"
-        onChangeText={setGroceryName}
-        value={groceryName}
-        onSubmitEditing={saveGrocery}
-      />
-      {/* TODO: Fix for styling, esp. on ios */}
-      <AddButton
-        p={2}
-        m={2}
-        bg="background"
-        color="text"
-        fontSize="7"
-        onPress={saveGrocery}
-        title="Add"
-        accessibilityLabel="Add to your grocery list"
-      />
+      >
+        <GroceryInput
+          fontSize="display"
+          color="black"
+          onChangeText={setGroceryName}
+          value={groceryName}
+          onSubmitEditing={saveGrocery}
+          css={`
+            flex: 1;
+          `}
+        />
+        <AddButton
+          bg="transparent"
+          accessibilityLabel="Add to your grocery list"
+          onPress={saveGrocery}
+          mx={2}
+        >
+          <Ionicons name="md-send" size={32} color="#29945b" />
+        </AddButton>
+      </AddContainer>
     </KeyboardAvoidingView>
   );
 };
