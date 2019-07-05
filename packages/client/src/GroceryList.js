@@ -16,6 +16,18 @@ const initialGroceries = [
   { id: uuid(), name: 'Oranges', done: true },
   { id: uuid(), name: 'Milk' },
   { id: uuid(), name: 'Bread' },
+  { id: uuid(), name: 'Banana' },
+  { id: uuid(), name: 'Oranges', done: true },
+  { id: uuid(), name: 'Milk' },
+  { id: uuid(), name: 'Bread' },
+  { id: uuid(), name: 'Banana' },
+  { id: uuid(), name: 'Oranges', done: true },
+  { id: uuid(), name: 'Milk' },
+  { id: uuid(), name: 'Bread' },
+  { id: uuid(), name: 'Banana' },
+  { id: uuid(), name: 'Oranges', done: true },
+  { id: uuid(), name: 'Milk' },
+  { id: uuid(), name: 'Bread' },
 ];
 
 export default () => {

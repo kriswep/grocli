@@ -19,7 +19,8 @@ export default function App() {
       <Container
         color="white"
         bg="background"
-        alignItems="center"
+        alignItems="stretch"
+        alignSelf="stretch"
         justifyContent="center"
         css={`
           flex: 1;
