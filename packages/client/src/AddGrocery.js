@@ -32,6 +32,7 @@ export default ({ addGrocery }) => {
         color="black"
         onChangeText={setGroceryName}
         value={groceryName}
+        onSubmitEditing={saveGrocery}
       />
       <AddButton
         p={2}

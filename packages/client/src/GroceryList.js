@@ -13,7 +13,7 @@ const GroceryList = styled(FlatList)`
 
 const initialGroceries = [
   { id: uuid(), name: 'Banana' },
-  { id: uuid(), name: 'Orange' },
+  { id: uuid(), name: 'Oranges', done: true },
   { id: uuid(), name: 'Milk' },
   { id: uuid(), name: 'Bread' },
 ];
