@@ -26,7 +26,7 @@ export default ({ addGrocery }) => {
     <KeyboardAvoidingView behavior="padding" enabled>
       <GroceryInput
         p={2}
-        my={2}
+        m={2}
         bg="lightgray"
         fontSize="display"
         color="black"
@@ -34,12 +34,13 @@ export default ({ addGrocery }) => {
         value={groceryName}
         onSubmitEditing={saveGrocery}
       />
+      {/* TODO: Fix for styling, esp. on ios */}
       <AddButton
         p={2}
-        my={2}
+        m={2}
         bg="background"
-        fontSize="7"
         color="text"
+        fontSize="7"
         onPress={saveGrocery}
         title="Add"
         accessibilityLabel="Add to your grocery list"

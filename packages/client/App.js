@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { color, flexbox, space } from 'styled-system';
 
@@ -7,7 +7,7 @@ import styled from './src/styled';
 import theme from './src/theme';
 import GroceryList from './src/GroceryList';
 
-const Container = styled(View)`
+const Container = styled(SafeAreaView)`
   ${color};
   ${flexbox};
   ${space};
