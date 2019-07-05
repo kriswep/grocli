@@ -25,6 +25,14 @@ export default () => {
     setGroceries(groceries.concat({ id: uuid(), name }));
   };
 
+  const toggleGrocery = id => {
+    setGroceries(
+      groceries.map(grocery =>
+        grocery.id === id ? { ...grocery, done: !grocery.done } : grocery,
+      ),
+    );
+  };
+
   return (
     <View
       css={`
@@ -35,7 +43,9 @@ export default () => {
         py={4}
         data={groceries}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <GroceryItem grocery={item} />}
+        renderItem={({ item }) => (
+          <GroceryItem grocery={item} toggleGrocery={toggleGrocery} />
+        )}
       />
       <AddGrocery addGrocery={addGrocery} />
     </View>

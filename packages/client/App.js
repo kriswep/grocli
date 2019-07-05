@@ -24,6 +24,7 @@ export default function App() {
         css={`
           flex: 1;
         `}
+        flexDirection="column"
       >
         <GroceryList />
       </Container>

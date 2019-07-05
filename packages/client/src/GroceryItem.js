@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { color, typography, space } from 'styled-system';
 
 import styled from './styled';
@@ -12,13 +12,19 @@ const Item = styled(Text)`
   ${itemStyle};
 `;
 
-export default ({ grocery }) => (
-  <Item
-    color="text"
-    fontSize="display"
-    px="3"
-    variant={grocery.done ? 'done' : ''}
+export default ({ grocery, toggleGrocery }) => (
+  <TouchableOpacity
+    onPress={() => {
+      toggleGrocery(grocery.id);
+    }}
   >
-    {grocery.name}
-  </Item>
+    <Item
+      color="text"
+      fontSize="display"
+      px="3"
+      variant={grocery.done ? 'done' : ''}
+    >
+      {grocery.name}
+    </Item>
+  </TouchableOpacity>
 );
