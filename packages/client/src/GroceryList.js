@@ -18,7 +18,7 @@ const Separator = styled(View)`
 `;
 
 const ListSeparator = () => {
-  return <Separator height="1" bg="#CED0CE" ml="3" my="2" />;
+  return <Separator height="fine" bg="#CED0CE" ml="3" my="2" />;
 };
 
 const initialGroceries = [
