@@ -22,6 +22,7 @@ export default ({ grocery, toggleGrocery }) => (
       color="text"
       fontSize="display"
       px="3"
+      py="3"
       variant={grocery.done ? 'done' : ''}
     >
       {grocery.name}

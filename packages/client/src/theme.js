@@ -9,7 +9,7 @@ export const itemStyle = variant({
 
 export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72];
 fontSizes.body = fontSizes[2];
-fontSizes.display = fontSizes[5];
+fontSizes.display = fontSizes[3];
 
 export const sizes = [0, 4, 8, 16, 32, 64, 128, 256, 512];
 sizes.fine = 1;
@@ -19,9 +19,6 @@ export const colors = {
 
   black: '#000e1a',
   white: '#fff',
-  text: '#fff',
-  textDone: '#999',
-  background: '#000e1a',
 
   gray: {
     100: '#f7fafc',
@@ -135,7 +132,7 @@ export const colors = {
   },
 };
 
-colors.background = colors.gray['800'];
+colors.background = colors.gray['900'];
 colors.text = colors.gray['100'];
 colors.textDone = colors.gray['500'];
 

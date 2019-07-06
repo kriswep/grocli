@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FlatList, View } from 'react-native';
-import { space, layout, color } from 'styled-system';
+import { FlatList, View, Text } from 'react-native';
+import { space, layout, color, typography } from 'styled-system';
 import uuid from 'uuid/v4';
 
 import styled from './styled';
@@ -18,7 +18,29 @@ const Separator = styled(View)`
 `;
 
 const ListSeparator = () => {
-  return <Separator height="fine" bg="#CED0CE" ml="3" my="2" />;
+  return <Separator height="fine" bg="gray.700" ml="3" />;
+};
+
+const Header = styled(Text)`
+  ${space};
+  ${color};
+  ${layout};
+  ${typography};
+`;
+
+const ListHeader = () => {
+  return (
+    <Header
+      color="text"
+      bg="gray.800"
+      accessibilityRole="header"
+      aria-level="2"
+      fontSize="display"
+      p="3"
+    >
+      Grocery List
+    </Header>
+  );
 };
 
 const initialGroceries = [
@@ -62,13 +84,13 @@ export default () => {
       `}
     >
       <GroceryList
-        py={4}
         data={groceries}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <GroceryItem grocery={item} toggleGrocery={toggleGrocery} />
         )}
         ItemSeparatorComponent={ListSeparator}
+        ListHeaderComponent={ListHeader}
       />
       <AddGrocery addGrocery={addGrocery} />
     </View>
