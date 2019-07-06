@@ -20,6 +20,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@expo/webpack-config": "^0.6.0",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-preset-expo": "^5.2.0",
     "prettier": "^1.18.2"
