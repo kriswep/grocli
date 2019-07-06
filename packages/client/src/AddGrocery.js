@@ -9,6 +9,7 @@ import { color, typography, space, flexbox, border } from 'styled-system';
 import { Ionicons } from '@expo/vector-icons';
 
 import styled from './styled';
+import { colors } from './theme';
 
 const AddContainer = styled(View)`
   ${color};
@@ -47,9 +48,10 @@ export default ({ addGrocery }) => {
         borderRadius={3}
         p={2}
         m={2}
-        bg="lightgray"
+        bg="gray.300"
       >
         <GroceryInput
+          accessibilityLabel="Add a new item to your grocers list."
           fontSize="display"
           color="black"
           onChangeText={setGroceryName}
@@ -65,7 +67,7 @@ export default ({ addGrocery }) => {
           onPress={saveGrocery}
           px="2"
         >
-          <Ionicons name="md-send" size={32} color="#29945b" />
+          <Ionicons name="md-send" size={32} color={colors.orange['500']} />
         </AddButton>
       </AddContainer>
     </KeyboardAvoidingView>

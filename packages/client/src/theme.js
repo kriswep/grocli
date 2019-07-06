@@ -19,7 +19,6 @@ export const colors = {
 
   black: '#000e1a',
   white: '#fff',
-  lightgray: '#fafafa',
   text: '#fff',
   textDone: '#999',
   background: '#000e1a',
@@ -136,7 +135,9 @@ export const colors = {
   },
 };
 
-// colors.background = colors.orange['900'];
+colors.background = colors.gray['800'];
+colors.text = colors.gray['100'];
+colors.textDone = colors.gray['500'];
 
 export default {
   colors,
