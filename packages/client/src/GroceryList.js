@@ -67,6 +67,7 @@ export default () => {
 
   const addGrocery = name => {
     setGroceries(groceries.concat({ id: uuid(), name }));
+    scrollToListEnd();
   };
 
   const toggleGrocery = id => {
@@ -80,7 +81,7 @@ export default () => {
   const groceryList = useRef(null);
 
   const scrollToListEnd = () => {
-    groceryList.current.scrollToEnd();
+    setTimeout(() => groceryList.current.scrollToEnd(), 400);
   };
 
   return (
@@ -98,7 +99,6 @@ export default () => {
         )}
         ItemSeparatorComponent={ListSeparator}
         ListHeaderComponent={ListHeader}
-        onContentSizeChange={scrollToListEnd}
       />
       <AddGrocery addGrocery={addGrocery} onFocus={scrollToListEnd} />
     </View>
