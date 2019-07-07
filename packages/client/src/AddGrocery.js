@@ -23,6 +23,7 @@ const GroceryInput = styled(TextInput)`
   ${typography};
   ${space};
   ${flexbox};
+  ${border};
 `;
 
 const AddButton = styled(TouchableOpacity)`
@@ -45,19 +46,21 @@ export default ({ addGrocery, onFocus }) => {
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
-        borderRadius={3}
-        p={2}
-        m={2}
         bg="gray.300"
+        m="2"
+        mb="4"
+        borderRadius="3"
       >
         <GroceryInput
           onFocus={onFocus}
           accessibilityLabel="Add a new item to your grocers list."
-          fontSize="display"
+          fontSize="5"
           color="black"
           onChangeText={setGroceryName}
           value={groceryName}
           onSubmitEditing={saveGrocery}
+          borderRadius="3"
+          p="2"
           css={`
             flex: 1;
           `}
@@ -66,7 +69,7 @@ export default ({ addGrocery, onFocus }) => {
           bg="transparent"
           accessibilityLabel="Add to your grocery list"
           onPress={saveGrocery}
-          px="2"
+          p="2"
         >
           <Ionicons name="md-send" size={32} color={colors.orange['500']} />
         </AddButton>
