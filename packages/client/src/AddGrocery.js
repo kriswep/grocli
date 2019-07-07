@@ -31,7 +31,7 @@ const AddButton = styled(TouchableOpacity)`
   ${space};
 `;
 
-export default ({ addGrocery }) => {
+export default ({ addGrocery, onFocus }) => {
   const [groceryName, setGroceryName] = useState('');
   const saveGrocery = () => {
     if (groceryName.length > 0) {
@@ -51,6 +51,7 @@ export default ({ addGrocery }) => {
         bg="gray.300"
       >
         <GroceryInput
+          onFocus={onFocus}
           accessibilityLabel="Add a new item to your grocers list."
           fontSize="display"
           color="black"

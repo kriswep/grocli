@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { space, layout, color, typography } from 'styled-system';
 import uuid from 'uuid/v4';
@@ -77,6 +77,12 @@ export default () => {
     );
   };
 
+  const groceryList = useRef(null);
+
+  const scrollToListEnd = () => {
+    groceryList.current.scrollToEnd();
+  };
+
   return (
     <View
       css={`
@@ -84,6 +90,7 @@ export default () => {
       `}
     >
       <GroceryList
+        ref={groceryList}
         data={groceries}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
@@ -91,8 +98,9 @@ export default () => {
         )}
         ItemSeparatorComponent={ListSeparator}
         ListHeaderComponent={ListHeader}
+        onContentSizeChange={scrollToListEnd}
       />
-      <AddGrocery addGrocery={addGrocery} />
+      <AddGrocery addGrocery={addGrocery} onFocus={scrollToListEnd} />
     </View>
   );
 };
