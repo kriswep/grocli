@@ -53,7 +53,7 @@ export default ({ addGrocery, onFocus }) => {
       >
         <GroceryInput
           onFocus={onFocus}
-          accessibilityLabel="Add a new item to your grocers list."
+          accessibilityLabel="Add a new item to your grocery list."
           fontSize="5"
           color="black"
           onChangeText={setGroceryName}
