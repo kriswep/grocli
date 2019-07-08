@@ -1,0 +1,6 @@
+{
+  "name": "grocli-server",
+  "private": true,
+  "main": "noop.js",
+  "scripts": {}
+}
