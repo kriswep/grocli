@@ -46,7 +46,6 @@ export default class App extends React.Component {
             translucent={false}
           />
           <Container
-            color="white"
             bg="background"
             alignItems="stretch"
             alignSelf="stretch"
