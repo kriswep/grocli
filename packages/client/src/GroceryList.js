@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { space, layout, color, typography } from 'styled-system';
 import uuid from 'uuid/v4';
@@ -66,29 +66,27 @@ const initialGroceries = [
 
 export const USERS_ITEMS = gql`
   query {
-    users {
-      id
-      items(limit: 10) {
-        name
-      }
-    }
     items {
       id
       name
       done
-      user {
-        id
-      }
     }
   }
 `;
 
 export default () => {
-  const { loading, data } = useQuery(USERS_ITEMS);
-
-  console.log(loading, data);
-
   const [groceries, setGroceries] = useState(initialGroceries);
+
+  const { loading, data } = useQuery(USERS_ITEMS);
+  let items = null;
+  if (data) {
+    items = data.items;
+  }
+  useEffect(() => {
+    if (data && data.items) {
+      setGroceries(data.items);
+    }
+  }, [items]);
 
   const addGrocery = name => {
     setGroceries(groceries.concat({ id: uuid(), name }));

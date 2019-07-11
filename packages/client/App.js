@@ -35,7 +35,6 @@ export default class App extends React.Component {
     if (!this.state.client) {
       return <Text>Loading</Text>;
     }
-    console.log(this.state.client);
 
     return (
       <ThemeProvider theme={theme}>
