@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { space, layout, color, typography } from 'styled-system';
 import uuid from 'uuid/v4';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 
 import styled from './styled';
 import GroceryItem from './GroceryItem';
@@ -62,7 +64,30 @@ const initialGroceries = [
   { id: uuid(), name: 'Bread' },
 ];
 
+export const USERS_ITEMS = gql`
+  query {
+    users {
+      id
+      items(limit: 10) {
+        name
+      }
+    }
+    items {
+      id
+      name
+      done
+      user {
+        id
+      }
+    }
+  }
+`;
+
 export default () => {
+  const { loading, data } = useQuery(USERS_ITEMS);
+
+  console.log(loading, data);
+
   const [groceries, setGroceries] = useState(initialGroceries);
 
   const addGrocery = name => {
