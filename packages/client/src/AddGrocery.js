@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import { color, typography, space, flexbox, border } from 'styled-system';
 import { Ionicons } from '@expo/vector-icons';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 import styled from './styled';
 import { colors } from './theme';
@@ -32,12 +34,31 @@ const AddButton = styled(TouchableOpacity)`
   ${space};
 `;
 
-export default ({ addGrocery, onFocus }) => {
+const SAVE_ITEM = gql`
+  mutation SAVE_ITEM($name: String!) {
+    insert_items(objects: { name: $name }) {
+      returning {
+        id
+        name
+        done
+      }
+    }
+  }
+`;
+
+export default ({ groceryAdded, onFocus }) => {
   const [groceryName, setGroceryName] = useState('');
-  const saveGrocery = () => {
+
+  const [saveGrocery, { error, data }] = useMutation(SAVE_ITEM, {
+    variables: { name: groceryName },
+    refetchQueries: ['QUERY_ITEMS'],
+  });
+
+  const addGrocery = () => {
     if (groceryName.length > 0) {
-      addGrocery(groceryName);
+      saveGrocery();
       setGroceryName('');
+      groceryAdded();
     }
   };
   return (
@@ -58,7 +79,7 @@ export default ({ addGrocery, onFocus }) => {
           color="black"
           onChangeText={setGroceryName}
           value={groceryName}
-          onSubmitEditing={saveGrocery}
+          onSubmitEditing={addGrocery}
           borderRadius="3"
           p="2"
           css={`
@@ -68,7 +89,7 @@ export default ({ addGrocery, onFocus }) => {
         <AddButton
           bg="transparent"
           accessibilityLabel="Add to your grocery list"
-          onPress={saveGrocery}
+          onPress={addGrocery}
           p="2"
         >
           <Ionicons name="md-send" size={32} color={colors.orange['500']} />

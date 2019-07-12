@@ -64,8 +64,8 @@ const initialGroceries = [
   { id: uuid(), name: 'Bread' },
 ];
 
-export const USERS_ITEMS = gql`
-  query {
+export const QUERY_ITEMS = gql`
+  query QUERY_ITEMS {
     items {
       id
       name
@@ -77,7 +77,8 @@ export const USERS_ITEMS = gql`
 export default () => {
   const [groceries, setGroceries] = useState(initialGroceries);
 
-  const { loading, data } = useQuery(USERS_ITEMS);
+  const { loading, data } = useQuery(QUERY_ITEMS);
+
   let items = null;
   if (data) {
     items = data.items;
@@ -88,8 +89,8 @@ export default () => {
     }
   }, [items]);
 
-  const addGrocery = name => {
-    setGroceries(groceries.concat({ id: uuid(), name }));
+  const groceryAdded = name => {
+    // setGroceries(groceries.concat({ id: uuid(), name }));
     scrollToListEnd();
   };
 
@@ -123,7 +124,7 @@ export default () => {
         ItemSeparatorComponent={ListSeparator}
         ListHeaderComponent={ListHeader}
       />
-      <AddGrocery addGrocery={addGrocery} onFocus={scrollToListEnd} />
+      <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
     </View>
   );
 };
