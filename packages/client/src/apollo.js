@@ -1,15 +1,18 @@
 import { HttpLink } from 'apollo-link-http';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { API_BASE_URL } from 'react-native-dotenv';
 
 /*
  Offline support recipe: https://medium.com/twostoryrobot/a-recipe-for-offline-support-in-react-apollo-571ad7e6f7f4
 */
 
+const BASE_URL = BASE_URL || 'http://localhost:8080';
+
 const makeApolloClient = token => {
   // create an apollo link instance, a network interface for apollo client
   const link = new HttpLink({
-    uri: `http://localhost:8080/v1/graphql`,
+    uri: `${BASE_URL}/v1/graphql`,
     // headers: {
     //   Authorization: `Bearer ${token}`
     // }
