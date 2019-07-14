@@ -52,18 +52,15 @@ export default ({ grocery }) => {
         data = { items: [] };
       }
       // Write our data back to the cache with the changed comment in it, //TODO
-      // proxy.writeQuery({
-      //   query: QUERY_ITEMS,
-      //   data: {
-      //     ...data,
-      //     items: [
-      //       ...data.items,
-      //       Array.isArray(update_items.returning)
-      //         ? update_items.returning[0]
-      //         : update_items.returning,
-      //     ],
-      //   },
-      // });
+      proxy.writeQuery({
+        query: QUERY_ITEMS,
+        data: {
+          ...data,
+          items: data.items.map(item =>
+            item.id === grocery.id ? { ...item, done: !grocery.done } : item,
+          ),
+        },
+      });
     },
   });
 
