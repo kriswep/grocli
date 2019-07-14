@@ -12,7 +12,17 @@ import gql from 'graphql-tag';
 
 import styled from './styled';
 import { colors } from './theme';
-
+// import { QUERY_ITEMS } from './GroceryList';
+// Todo refactor to import from somewhere
+export const QUERY_ITEMS = gql`
+  query QUERY_ITEMS {
+    items {
+      id
+      name
+      done
+    }
+  }
+`;
 const AddContainer = styled(View)`
   ${color};
   ${space};
@@ -34,7 +44,7 @@ const AddButton = styled(TouchableOpacity)`
   ${space};
 `;
 
-const SAVE_ITEM = gql`
+export const SAVE_ITEM = gql`
   mutation SAVE_ITEM($name: String!) {
     insert_items(objects: { name: $name }) {
       returning {
@@ -51,7 +61,41 @@ export default ({ groceryAdded, onFocus }) => {
 
   const [saveGrocery, { error, data }] = useMutation(SAVE_ITEM, {
     variables: { name: groceryName },
-    refetchQueries: ['QUERY_ITEMS'],
+    // refetchQueries: ['QUERY_ITEMS'],
+    optimisticResponse: {
+      insert_items: {
+        __typename: 'items_mutation_response',
+        returning: {
+          id: new Date().getTime().toString(), // temp Id fine for now
+          name: groceryName,
+          done: false,
+          __typename: 'items',
+        },
+      },
+    },
+    update: (proxy, { data: { insert_items } }) => {
+      // Read the data from our cache for this query.
+      let data;
+      try {
+        data = proxy.readQuery({ query: QUERY_ITEMS });
+      } catch (e) {
+        // this happens when cache is empty
+        data = { items: [] };
+      }
+      // Write our data back to the cache with the new comment in it
+      proxy.writeQuery({
+        query: QUERY_ITEMS,
+        data: {
+          ...data,
+          items: [
+            ...data.items,
+            Array.isArray(insert_items.returning)
+              ? insert_items.returning[0]
+              : insert_items.returning,
+          ],
+        },
+      });
+    },
   });
 
   const addGrocery = () => {
