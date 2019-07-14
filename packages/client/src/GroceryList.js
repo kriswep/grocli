@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { space, layout, color, typography } from 'styled-system';
-import uuid from 'uuid/v4';
-import gql from 'graphql-tag';
+// import uuid from 'uuid/v4';
 import { useQuery } from '@apollo/react-hooks';
 
 import styled from './styled';
 import GroceryItem from './GroceryItem';
 import AddGrocery from './AddGrocery';
+import { QUERY_ITEMS } from './items.query';
 
 const GroceryList = styled(FlatList)`
   ${space};
@@ -44,16 +44,6 @@ const ListHeader = () => {
     </Header>
   );
 };
-
-export const QUERY_ITEMS = gql`
-  query QUERY_ITEMS {
-    items {
-      id
-      name
-      done
-    }
-  }
-`;
 
 export default () => {
   const { loading, data: { items } = { items: [] } } = useQuery(QUERY_ITEMS);

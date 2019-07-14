@@ -12,17 +12,8 @@ import gql from 'graphql-tag';
 
 import styled from './styled';
 import { colors } from './theme';
-// import { QUERY_ITEMS } from './GroceryList';
-// Todo refactor to import from somewhere
-export const QUERY_ITEMS = gql`
-  query QUERY_ITEMS {
-    items {
-      id
-      name
-      done
-    }
-  }
-`;
+import { QUERY_ITEMS } from './items.query';
+
 const AddContainer = styled(View)`
   ${color};
   ${space};
@@ -82,7 +73,7 @@ export default ({ groceryAdded, onFocus }) => {
         // this happens when cache is empty
         data = { items: [] };
       }
-      // Write our data back to the cache with the new comment in it
+      // Write our data back to the cache with the new item in it
       proxy.writeQuery({
         query: QUERY_ITEMS,
         data: {
