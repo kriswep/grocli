@@ -32,7 +32,7 @@ export default ({ grocery }) => {
     variables: { id: grocery.id, done: !grocery.done },
     // refetchQueries: ['QUERY_ITEMS'],
     optimisticResponse: {
-      insert_items: {
+      update_items: {
         __typename: 'items_mutation_response',
         returning: {
           id: grocery.id,
