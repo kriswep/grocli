@@ -12,10 +12,10 @@ const Item = styled(Text)`
   ${itemStyle};
 `;
 
-export default ({ grocery, toggleGrocery }) => (
+export default ({ grocery }) => (
   <TouchableOpacity
     onPress={() => {
-      toggleGrocery(grocery.id);
+      // todo
     }}
   >
     <Item

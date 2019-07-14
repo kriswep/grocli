@@ -45,25 +45,6 @@ const ListHeader = () => {
   );
 };
 
-const initialGroceries = [
-  { id: uuid(), name: 'Banana' },
-  { id: uuid(), name: 'Oranges', done: true },
-  { id: uuid(), name: 'Milk' },
-  { id: uuid(), name: 'Bread' },
-  { id: uuid(), name: 'Banana' },
-  { id: uuid(), name: 'Oranges', done: true },
-  { id: uuid(), name: 'Milk' },
-  { id: uuid(), name: 'Bread' },
-  { id: uuid(), name: 'Banana' },
-  { id: uuid(), name: 'Oranges', done: true },
-  { id: uuid(), name: 'Milk' },
-  { id: uuid(), name: 'Bread' },
-  { id: uuid(), name: 'Banana' },
-  { id: uuid(), name: 'Oranges', done: true },
-  { id: uuid(), name: 'Milk' },
-  { id: uuid(), name: 'Bread' },
-];
-
 export const QUERY_ITEMS = gql`
   query QUERY_ITEMS {
     items {
@@ -75,38 +56,31 @@ export const QUERY_ITEMS = gql`
 `;
 
 export default () => {
-  const [groceries, setGroceries] = useState(initialGroceries);
-
-  const { loading, data } = useQuery(QUERY_ITEMS);
-
-  let items = null;
-  if (data) {
-    items = data.items;
-  }
-  useEffect(() => {
-    if (data && data.items) {
-      setGroceries(data.items);
-    }
-  }, [items]);
+  const { loading, data: { items } = { items: [] } } = useQuery(QUERY_ITEMS);
 
   const groceryAdded = name => {
-    // setGroceries(groceries.concat({ id: uuid(), name }));
     scrollToListEnd();
   };
 
-  const toggleGrocery = id => {
-    setGroceries(
-      groceries.map(grocery =>
-        grocery.id === id ? { ...grocery, done: !grocery.done } : grocery,
-      ),
-    );
-  };
+  // const toggleGrocery = id => {
+  //   setGroceries(
+  //     groceries.map(grocery =>
+  //       grocery.id === id ? { ...grocery, done: !grocery.done } : grocery,
+  //     ),
+  //   );
+  // };
 
   const groceryList = useRef(null);
 
   const scrollToListEnd = () => {
-    setTimeout(() => groceryList.current.scrollToEnd(), 400);
+    if (items && items.length > 0) {
+      setTimeout(() => groceryList.current.scrollToEnd(), 400);
+    }
   };
+
+  if (loading) {
+    return <Text>Loading</Text>;
+  }
 
   return (
     <View
@@ -114,16 +88,16 @@ export default () => {
         flex: 1;
       `}
     >
-      <GroceryList
-        ref={groceryList}
-        data={groceries}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <GroceryItem grocery={item} toggleGrocery={toggleGrocery} />
-        )}
-        ItemSeparatorComponent={ListSeparator}
-        ListHeaderComponent={ListHeader}
-      />
+      {items && items.length > 0 && (
+        <GroceryList
+          ref={groceryList}
+          data={items}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <GroceryItem grocery={item} />}
+          ItemSeparatorComponent={ListSeparator}
+          ListHeaderComponent={ListHeader}
+        />
+      )}
       <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
     </View>
   );
