@@ -46,19 +46,13 @@ const ListHeader = () => {
 };
 
 export default () => {
-  const { loading, data: { items } = { items: [] } } = useQuery(QUERY_ITEMS);
+  const { loading, data: { items } = { items: [] } } = useQuery(QUERY_ITEMS, {
+    fetchPolicy: 'cache-and-network',
+  });
 
   const groceryAdded = name => {
     scrollToListEnd();
   };
-
-  // const toggleGrocery = id => {
-  //   setGroceries(
-  //     groceries.map(grocery =>
-  //       grocery.id === id ? { ...grocery, done: !grocery.done } : grocery,
-  //     ),
-  //   );
-  // };
 
   const groceryList = useRef(null);
 
@@ -69,7 +63,7 @@ export default () => {
   };
 
   if (loading) {
-    return <Text>Loading</Text>;
+    return <Text>Loading...</Text>;
   }
 
   return (

@@ -26,7 +26,7 @@ export default class App extends React.Component {
     // const { token, id } = sessionObj;
     // // make apollo client with this session token
     // const client = makeApolloClient(token);
-    const client = makeApolloClient();
+    const client = await makeApolloClient();
     // start emitting events saying that the useri s online
     this.setState({ client });
   }
