@@ -4,10 +4,12 @@ import { ThemeProvider } from 'styled-components';
 import { color, flexbox, space } from 'styled-system';
 import { ApolloProvider } from '@apollo/react-hooks';
 import makeApolloClient from './src/apollo';
+// import { AuthSession } from 'expo';
 
 import styled from './src/styled';
 import theme from './src/theme';
 import GroceryList from './src/GroceryList';
+import Session from './src/auth/Session';
 
 const Container = styled(SafeAreaView)`
   ${color};
@@ -20,6 +22,8 @@ export default class App extends React.Component {
     client: null,
   };
   async componentDidMount() {
+    // const redirectUrl = AuthSession.getRedirectUrl();
+    // console.log(`Redirect URL: ${redirectUrl}`);
     // fetch session
     // const session = await AsyncStorage.getItem('@todo-graphql:session');
     // const sessionObj = JSON.parse(session);
@@ -54,6 +58,7 @@ export default class App extends React.Component {
             `}
             flexDirection="column"
           >
+            <Session />
             <GroceryList />
           </Container>
         </ApolloProvider>
