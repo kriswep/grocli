@@ -1,21 +1,22 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, Text } from 'react-native';
 
-import { useAuth } from './auth0-wrapper';
+import useAuth from './auth-wrapper';
 
 const Session = () => {
   const [auth, isAuthenticated] = useAuth();
 
-  console.log('auth?', auth.isAuthenticated(), isAuthenticated);
   return (
     <View style={styles.container}>
       {!isAuthenticated && (
         <Button title="Log in with Auth0 web" onPress={auth.login} />
       )}
       {isAuthenticated &&
-        (console.log(auth.getIdToken()) || (
-          <Button title="Log out" onPress={auth.logout} />
+        auth.name &&
+        (console.log(auth.token) || (
+          <Text style={styles.title}>You are logged in, {auth.name}!</Text>
         ))}
+      {isAuthenticated && <Button title="Log out" onPress={auth.logout} />}
     </View>
   );
 };
