@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 
-import useAuth from './auth-wrapper';
+import useAuth from './authWrapper';
 
 const Session = () => {
   const [auth, isAuthenticated] = useAuth();

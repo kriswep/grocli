@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import auth0js from 'auth0-js';
 
 // auth0 data
 const auth0ClientId = '7HHRrraCDNzKhL0FoKIzJN4N066UKqWB';
 const auth0Domain = 'kriswep.eu.auth0.com';
 
-// Routes the user to the right place after login
+/**
+ * Routes the user to the right place after login
+ */
 const onRedirectCallback = appState => {
   window.history.replaceState(
     {},
@@ -65,7 +68,7 @@ const useAuth = () => {
         setSession(authResult);
       } else if (err) {
         console.error(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
+        Alert('Authentication error', err.error || 'something went wrong');
       }
     });
   };
@@ -74,7 +77,7 @@ const useAuth = () => {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
 
-    // Set the time that the access token will expire at
+    // Set the data from result
     setAccessToken(authResult.accessToken);
     setIdToken(authResult.idToken);
     setSub(authResult.idTokenPayload.sub);
@@ -87,7 +90,7 @@ const useAuth = () => {
     setAccessToken(null);
     setIdToken(null);
     setSub(null);
-    setName(0);
+    setName(null);
     setExpiresAt(0);
 
     // Remove isLoggedIn flag from localStorage
@@ -104,8 +107,6 @@ const useAuth = () => {
     {
       token: idToken,
       name,
-      accessToken,
-      sub,
       login,
       logout,
       isAuthenticated,
