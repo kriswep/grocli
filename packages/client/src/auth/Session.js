@@ -10,11 +10,9 @@ const Session = () => {
       {!isAuthenticated && (
         <Button title="Log in with Auth0 native" onPress={auth.login} />
       )}
-      {isAuthenticated &&
-        auth.name &&
-        (console.log(auth.token) || (
-          <Text style={styles.title}>You are logged in, {auth.name}!</Text>
-        ))}
+      {isAuthenticated && auth.name && (
+        <Text style={styles.title}>You are logged in, {auth.name}!</Text>
+      )}
       {isAuthenticated && <Button title="Log out" onPress={auth.logout} />}
     </View>
   );
