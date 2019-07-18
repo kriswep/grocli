@@ -27,11 +27,15 @@ const useAuth = () => {
   const [name, setName] = useState(null);
   const [expiresAt, setExpiresAt] = useState(0);
 
-  const login = async () => {
+  const login = async signup => {
     // Retrieve the redirect URL, add this to the callback URL list
     // of your Auth0 application.
     const redirectUrl = AuthSession.getRedirectUrl();
 
+    let login_hint;
+    if (signup) {
+      login_hint = 'signUp';
+    }
     // Structure the auth parameters and URL
     const queryParams = toQueryString({
       client_id: auth0ClientId,
@@ -39,6 +43,7 @@ const useAuth = () => {
       response_type: 'id_token', // id_token will return a JWT token
       scope: 'openid profile', // retrieve the user's profile
       nonce: 'nonce', // ideally, this will be a random value
+      login_hint,
     });
     const authUrl = `${auth0Domain}/authorize` + queryParams;
 

@@ -58,8 +58,12 @@ const useAuth = () => {
     }
   }, [window.location.hash]);
 
-  const login = () => {
-    auth0.authorize();
+  const login = signup => {
+    let login_hint;
+    if (signup) {
+      login_hint = 'signUp';
+    }
+    auth0.authorize({ login_hint });
   };
 
   const handleAuthentication = () => {

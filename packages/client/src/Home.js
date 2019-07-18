@@ -24,7 +24,10 @@ const Home = () => {
   return (
     <>
       {!isAuthenticated && (
-        <Button title="Log in with Auth0" onPress={auth.login} />
+        <>
+          <Button title="Log In" onPress={() => auth.login()} />
+          <Button title="Sign Up" onPress={() => auth.login(true)} />
+        </>
       )}
       {isAuthenticated && client && (
         <ApolloProvider client={client}>
