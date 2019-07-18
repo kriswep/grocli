@@ -28,11 +28,15 @@ const makeApolloClient = async token => {
     },
   });
 
+  let headers;
+  if (token) {
+    headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  }
   const http = new HttpLink({
     uri: `${API_BASE_URL}/v1/graphql`,
-    // headers: {
-    //   Authorization: `Bearer ${token}`
-    // }
+    headers,
   });
   const link = concat(retry, http);
 

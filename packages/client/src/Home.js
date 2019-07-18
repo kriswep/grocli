@@ -14,7 +14,7 @@ const Home = () => {
     // create a client with token, when authenticated
     if (auth.token) {
       const createClient = async () => {
-        const newClient = await makeApolloClient();
+        const newClient = await makeApolloClient(auth.token);
         setClient(newClient);
       };
       createClient();
