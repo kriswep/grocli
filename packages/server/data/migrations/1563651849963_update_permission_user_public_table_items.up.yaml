@@ -1,0 +1,16 @@
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - created_at
+      - done
+      - id
+      - name
+      - updated_at
+      filter: {}
+      limit: null
+    role: user
+    table:
+      name: items
+      schema: public
+  type: create_select_permission

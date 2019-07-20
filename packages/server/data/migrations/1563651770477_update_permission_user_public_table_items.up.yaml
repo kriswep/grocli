@@ -1,0 +1,16 @@
+- args:
+    permission:
+      allow_upsert: true
+      check: {}
+      columns:
+      - done
+      - name
+      localPresets:
+      - key: ""
+        value: ""
+      set: {}
+    role: user
+    table:
+      name: items
+      schema: public
+  type: create_insert_permission
