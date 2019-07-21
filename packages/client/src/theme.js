@@ -132,9 +132,9 @@ export const colors = {
   },
 };
 
-colors.background = colors.gray['900'];
+colors.background = '#110C4A';
 colors.text = colors.gray['100'];
-colors.textDone = colors.gray['500'];
+colors.textDone = '#807CB2';
 
 export default {
   colors,

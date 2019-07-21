@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
+import * as Font from 'expo-font';
 import { ThemeProvider } from 'styled-components';
 import { color, flexbox, space } from 'styled-system';
 
@@ -14,25 +15,39 @@ const Container = styled(SafeAreaView)`
 `;
 
 const App = () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+  useEffect(() => {
+    const loadFonts = async () => {
+      await Font.loadAsync({
+        nunito: require('./assets/fonts/Nunito-Regular.ttf'),
+        'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
+      });
+      setFontLoaded(true);
+    };
+    loadFonts();
+  }, []);
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        bg="background"
-        alignItems="stretch"
-        alignSelf="stretch"
-        justifyContent="center"
-        css={`
-          flex: 1;
-        `}
-        flexDirection="column"
-      >
-        <StatusBar
-          backgroundColor="#1a202c"
-          barStyle="light-content"
-          translucent={false}
-        />
-        <Home />
-      </Container>
+      {fontLoaded && (
+        <Container
+          bg="background"
+          alignItems="stretch"
+          alignSelf="stretch"
+          justifyContent="center"
+          css={`
+            flex: 1;
+            justify-content: flex-start;
+          `}
+          flexDirection="column"
+        >
+          <StatusBar
+            backgroundColor="#1a202c"
+            barStyle="light-content"
+            translucent={false}
+          />
+          <Home />
+        </Container>
+      )}
     </ThemeProvider>
   );
 };
