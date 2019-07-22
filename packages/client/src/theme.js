@@ -17,9 +17,6 @@ sizes.fine = 1;
 export const colors = {
   transparent: 'transparent',
 
-  black: '#000e1a',
-  white: '#fff',
-
   gray: {
     100: '#f7fafc',
     200: '#edf2f7',
@@ -132,9 +129,12 @@ export const colors = {
   },
 };
 
-colors.background = '#110C4A';
-colors.text = colors.gray['100'];
-colors.textDone = '#807CB2';
+colors.background = colors.blue['900'];
+colors.text = colors.blue['100'];
+colors.textDone = colors.blue['500'];
+
+colors.white = colors.blue['100'];
+colors.black = colors.blue['900'];
 
 export default {
   colors,
