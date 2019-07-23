@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import { ThemeProvider } from 'styled-components';
 import { color, flexbox, space } from 'styled-system';
 
+import { AuthProvider } from './src/auth/authWrapper';
 import styled from './src/styled';
 import theme from './src/theme';
 import Home from './src/Home';
@@ -29,24 +30,26 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       {fontLoaded && (
-        <Container
-          bg="background"
-          alignItems="stretch"
-          alignSelf="stretch"
-          justifyContent="center"
-          css={`
-            flex: 1;
-            justify-content: flex-start;
-          `}
-          flexDirection="column"
-        >
-          <StatusBar
-            backgroundColor="#1a202c"
-            barStyle="light-content"
-            translucent={false}
-          />
-          <Home />
-        </Container>
+        <AuthProvider>
+          <Container
+            bg="background"
+            alignItems="stretch"
+            alignSelf="stretch"
+            justifyContent="center"
+            css={`
+              flex: 1;
+              justify-content: flex-start;
+            `}
+            flexDirection="column"
+          >
+            <StatusBar
+              backgroundColor="#1a202c"
+              barStyle="light-content"
+              translucent={false}
+            />
+            <Home />
+          </Container>
+        </AuthProvider>
       )}
     </ThemeProvider>
   );

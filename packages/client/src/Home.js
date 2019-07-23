@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { ApolloProvider } from '@apollo/react-hooks';
 
-import useAuth from './auth/authWrapper';
+import { useAuthState } from './auth/authWrapper';
 import makeApolloClient from './apollo';
 import Unauthenticated from './Unauthenticated';
 import GroceryList from './GroceryList';
+import Text from './Text';
 
 const Home = () => {
-  const [auth, isAuthenticated] = useAuth();
+  const [auth, isAuthenticated] = useAuthState();
   const [client, setClient] = useState(null);
 
   useEffect(() => {

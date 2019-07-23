@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import Text from './Text';
-import useAuth from './auth/authWrapper';
+// import useAuth from './auth/authWrapper';
+import { useAuthState } from './auth/authWrapper';
 
 const Unauthenticated = () => {
-  const [auth, isAuthenticated] = useAuth();
+  const [auth, isAuthenticated] = useAuthState();
 
-  if (isAuthenticated) return null;
+  if (isAuthenticated) return <Text>Auth</Text>;
 
   return (
     <>

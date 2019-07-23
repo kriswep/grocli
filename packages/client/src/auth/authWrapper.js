@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, AsyncStorage } from 'react-native';
 import { AuthSession } from 'expo';
 import jwtDecode from 'jwt-decode';
+
+const AuthStateContext = React.createContext();
 
 // auth0 data
 const auth0ClientId = '7HHRrraCDNzKhL0FoKIzJN4N066UKqWB';
@@ -22,7 +24,7 @@ function toQueryString(params) {
   );
 }
 
-const useAuth = () => {
+function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [name, setName] = useState(null);
   const [expiresAt, setExpiresAt] = useState(0);
@@ -96,7 +98,7 @@ const useAuth = () => {
     return new Date().getTime() < expiresAt;
   };
 
-  return [
+  const state = [
     {
       token,
       name,
@@ -106,6 +108,20 @@ const useAuth = () => {
     },
     isAuthenticated(),
   ];
-};
 
-export default useAuth;
+  return (
+    <AuthStateContext.Provider value={state}>
+      {children}
+    </AuthStateContext.Provider>
+  );
+}
+
+function useAuthState() {
+  const context = React.useContext(AuthStateContext);
+  if (context === undefined) {
+    throw new Error('useAuthState must be used within an AuthProvider');
+  }
+  return context;
+}
+
+export { AuthProvider, useAuthState };

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import auth0js from 'auth0-js';
+
+const AuthStateContext = React.createContext();
 
 // auth0 data
 const auth0ClientId = '7HHRrraCDNzKhL0FoKIzJN4N066UKqWB';
@@ -34,7 +36,7 @@ const onRedirectCallback = appState => {
 //     });
 //   }
 
-const useAuth = () => {
+function AuthProvider({ children }) {
   const [auth0] = useState(
     new auth0js.WebAuth({
       domain: auth0Domain,
@@ -107,7 +109,7 @@ const useAuth = () => {
     return new Date().getTime() < expiresAt;
   };
 
-  return [
+  const state = [
     {
       token: idToken,
       name,
@@ -117,6 +119,20 @@ const useAuth = () => {
     },
     isAuthenticated(),
   ];
-};
 
-export default useAuth;
+  return (
+    <AuthStateContext.Provider value={state}>
+      {children}
+    </AuthStateContext.Provider>
+  );
+}
+
+function useAuthState() {
+  const context = React.useContext(AuthStateContext);
+  if (context === undefined) {
+    throw new Error('useAuthState must be used within an AuthProvider');
+  }
+  return context;
+}
+
+export { AuthProvider, useAuthState };
