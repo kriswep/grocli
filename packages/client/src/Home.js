@@ -24,18 +24,14 @@ const Home = () => {
   }, [auth.token]);
 
   return (
-    <View
-      css={`
-        justify-content: flex-start;
-      `}
-    >
+    <>
       {!isAuthenticated && <Unauthenticated />}
       {isAuthenticated && client && (
         <ApolloProvider client={client}>
           <GroceryList />
         </ApolloProvider>
       )}
-    </View>
+    </>
   );
 };
 
