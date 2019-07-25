@@ -62,7 +62,7 @@ export default () => {
   };
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return null;
   }
 
   return (
