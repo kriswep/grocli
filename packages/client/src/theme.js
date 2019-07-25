@@ -131,7 +131,7 @@ export const colors = {
 
 colors.background = colors.blue['900'];
 colors.text = colors.blue['100'];
-colors.textDone = colors.blue['500'];
+colors.textDone = colors.blue['300'];
 
 colors.white = colors.blue['100'];
 colors.black = colors.blue['900'];
