@@ -8,7 +8,7 @@ import { useAuthState } from './auth/authWrapper';
 const Unauthenticated = () => {
   const [auth, isAuthenticated] = useAuthState();
 
-  if (isAuthenticated) return <Text>Auth</Text>;
+  if (isAuthenticated || auth.loading) return null;
 
   return (
     <>

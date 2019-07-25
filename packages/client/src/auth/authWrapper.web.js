@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import auth0js from 'auth0-js';
+import jwtDecode from 'jwt-decode';
 
 const AuthStateContext = React.createContext();
 
@@ -47,7 +48,7 @@ function AuthProvider({ children }) {
     }),
   );
 
-  const [accessToken, setAccessToken] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [idToken, setIdToken] = useState(null);
   const [name, setName] = useState(null);
   const [expiresAt, setExpiresAt] = useState(0);
@@ -55,12 +56,21 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     if (window.location.hash.includes('id_token=')) {
-      handleAuthentication();
+      handleAuthenticationHash();
       onRedirectCallback();
     }
   }, [window.location.hash]);
 
+  useEffect(() => {
+    const getSessionFromToken = async () => {
+      const token = await localStorage.getItem('token');
+      handleAuthenticationToken(token);
+    };
+    getSessionFromToken();
+  }, []);
+
   const login = signup => {
+    setLoading(true);
     let login_hint;
     if (signup) {
       login_hint = 'signUp';
@@ -68,7 +78,7 @@ function AuthProvider({ children }) {
     auth0.authorize({ login_hint });
   };
 
-  const handleAuthentication = () => {
+  const handleAuthenticationHash = () => {
     auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         setSession(authResult);
@@ -76,15 +86,26 @@ function AuthProvider({ children }) {
         console.error(err);
         Alert('Authentication error', err.error || 'something went wrong');
       }
+      setLoading(false);
     });
+  };
+
+  const handleAuthenticationToken = token => {
+    if (token) {
+      const decoded = jwtDecode(token);
+      if (decoded) {
+        setSession({ idToken: token, idTokenPayload: decoded });
+      }
+    }
+    setLoading(false);
   };
 
   const setSession = authResult => {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('token', authResult.idToken);
 
     // Set the data from result
-    setAccessToken(authResult.accessToken);
     setIdToken(authResult.idToken);
     setSub(authResult.idTokenPayload.sub);
     setName(authResult.idTokenPayload.name);
@@ -93,13 +114,13 @@ function AuthProvider({ children }) {
 
   const logout = () => {
     // Remove tokens and expiry time
-    setAccessToken(null);
     setIdToken(null);
     setSub(null);
     setName(null);
     setExpiresAt(0);
 
     // Remove isLoggedIn flag from localStorage
+    localStorage.removeItem('token');
     localStorage.removeItem('isLoggedIn');
   };
 
@@ -116,6 +137,7 @@ function AuthProvider({ children }) {
       login,
       logout,
       isAuthenticated,
+      loading,
     },
     isAuthenticated(),
   ];

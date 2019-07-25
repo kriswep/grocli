@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, AsyncStorage } from 'react-native';
 import { AuthSession } from 'expo';
 import jwtDecode from 'jwt-decode';
@@ -25,11 +25,22 @@ function toQueryString(params) {
 }
 
 function AuthProvider({ children }) {
+  const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
   const [name, setName] = useState(null);
   const [expiresAt, setExpiresAt] = useState(0);
 
+  useEffect(() => {
+    const getSessionFromToken = async () => {
+      const token = await AsyncStorage.getItem('token');
+      handleAuthenticationToken(token);
+    };
+    // logout();
+    getSessionFromToken();
+  }, []);
+
   const login = async signup => {
+    setLoading(true);
     // Retrieve the redirect URL, add this to the callback URL list
     // of your Auth0 application.
     const redirectUrl = AuthSession.getRedirectUrl();
@@ -63,6 +74,14 @@ function AuthProvider({ children }) {
         response.error_description || 'something went wrong',
       );
     }
+    setLoading(false);
+  };
+
+  const handleAuthenticationToken = token => {
+    if (token) {
+      handleResponse({ id_token: token });
+    }
+    setLoading(false);
   };
 
   const handleResponse = response => {
@@ -72,6 +91,7 @@ function AuthProvider({ children }) {
 
     // Set isLoggedIn flag in Storage
     AsyncStorage.setItem('isLoggedIn', 'true');
+    AsyncStorage.setItem('token', response.id_token);
 
     // Retrieve the JWT token and decode it
     const jwtToken = response.id_token;
@@ -89,6 +109,7 @@ function AuthProvider({ children }) {
     setExpiresAt(0);
 
     // Remove isLoggedIn flag from Storage
+    AsyncStorage.removeItem('token');
     AsyncStorage.removeItem('isLoggedIn');
   };
 
@@ -105,6 +126,7 @@ function AuthProvider({ children }) {
       login,
       logout,
       isAuthenticated,
+      loading,
     },
     isAuthenticated(),
   ];
