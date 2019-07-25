@@ -1,19 +1,10 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { color, typography, space } from 'styled-system';
+import { TouchableOpacity } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-import styled from './styled';
-import { itemStyle } from './theme';
 import { QUERY_ITEMS } from './items.query';
-
-const Item = styled(Text)`
-  ${color};
-  ${typography};
-  ${space};
-  ${itemStyle};
-`;
+import Text from './Text';
 
 export const TOGGLE_ITEM = gql`
   mutation TOGGLE_ITEM($id: uuid!, $done: Boolean!) {
@@ -66,15 +57,19 @@ export default ({ grocery }) => {
 
   return (
     <TouchableOpacity onPress={toggleGrocery}>
-      <Item
-        color="text"
-        fontSize="display"
-        px="3"
-        py="3"
-        variant={grocery.done ? 'done' : ''}
+      <Text
+        done={grocery.done ? 1 : 0}
+        css={`
+          color: ${props =>
+            props.done ? props.theme.colors.textDone : props.theme.colors.text};
+          text-decoration-line: ${props =>
+            props.done ? 'line-through' : 'none'};
+          font-size: ${props => props.theme.fontSizes.display}px;
+          padding: ${props => props.theme.space[3]}px;
+        `}
       >
         {grocery.name}
-      </Item>
+      </Text>
     </TouchableOpacity>
   );
 };

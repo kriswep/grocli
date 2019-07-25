@@ -5,35 +5,12 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import { color, typography, space, flexbox, border } from 'styled-system';
 import { Ionicons } from '@expo/vector-icons';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-import styled from './styled';
 import { colors } from './theme';
 import { QUERY_ITEMS } from './items.query';
-
-const AddContainer = styled(View)`
-  ${color};
-  ${space};
-  ${flexbox};
-  ${border};
-`;
-
-const GroceryInput = styled(TextInput)`
-  ${color};
-  ${typography};
-  ${space};
-  ${flexbox};
-  ${border};
-`;
-
-const AddButton = styled(TouchableOpacity)`
-  ${color};
-  ${typography};
-  ${space};
-`;
 
 export const SAVE_ITEM = gql`
   mutation SAVE_ITEM($name: String!) {
@@ -98,38 +75,43 @@ export default ({ groceryAdded, onFocus }) => {
   };
   return (
     <KeyboardAvoidingView behavior="padding" enabled>
-      <AddContainer
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        bg="gray.300"
-        m="2"
-        mb="4"
-        borderRadius="3"
+      <View
+        css={`
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          background-color: ${props => props.theme.colors.gray[300]};
+          margin: ${props => props.theme.space[2]}px;
+          margin-bottom: ${props => props.theme.space[4]}px;
+          border-radius: ${props => props.theme.radii[3]}px;
+        `}
       >
-        <GroceryInput
+        <TextInput
           onFocus={onFocus}
           accessibilityLabel="Add a new item to your grocery list."
-          fontSize="5"
-          color="black"
           onChangeText={setGroceryName}
           value={groceryName}
           onSubmitEditing={addGrocery}
-          borderRadius="3"
-          p="2"
           css={`
             flex: 1;
+            font-size: ${props => props.theme.fontSizes[5]}px;
+            font-family: nunito;
+            color: ${props => props.theme.colors.black};
+            padding: ${props => props.theme.space[2]}px;
+            border-radius: ${props => props.theme.radii[3]}px;
           `}
         />
-        <AddButton
-          bg="transparent"
+        <TouchableOpacity
           accessibilityLabel="Add to your grocery list"
           onPress={addGrocery}
-          p="2"
+          css={`
+            padding: ${props => props.theme.space[2]}px;
+            background: transparent;
+          `}
         >
           <Ionicons name="md-send" size={32} color={colors.orange['500']} />
-        </AddButton>
-      </AddContainer>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 };

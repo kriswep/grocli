@@ -1,12 +1,3 @@
-import { variant } from 'styled-system';
-
-export const itemStyle = variant({
-  // theme key for variant definitions
-  scale: 'item',
-  // component prop
-  prop: 'variant',
-});
-
 export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72];
 fontSizes.body = fontSizes[2];
 fontSizes.display = fontSizes[3];
@@ -142,10 +133,4 @@ export default {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   sizes,
   radii: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-  item: {
-    done: {
-      color: colors.textDone,
-      'text-decoration-line': 'line-through',
-    },
-  },
 };

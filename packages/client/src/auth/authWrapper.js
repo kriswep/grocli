@@ -35,7 +35,6 @@ function AuthProvider({ children }) {
       const token = await AsyncStorage.getItem('token');
       handleAuthenticationToken(token);
     };
-    // logout();
     getSessionFromToken();
   }, []);
 

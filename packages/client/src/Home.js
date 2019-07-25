@@ -6,7 +6,6 @@ import { useAuthState } from './auth/authWrapper';
 import makeApolloClient from './apollo';
 import Unauthenticated from './Unauthenticated';
 import GroceryList from './GroceryList';
-import Text from './Text';
 
 const Home = () => {
   const [auth, isAuthenticated] = useAuthState();

@@ -2,18 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import * as Font from 'expo-font';
 import { ThemeProvider } from 'styled-components';
-import { color, flexbox, space } from 'styled-system';
 
 import { AuthProvider } from './src/auth/authWrapper';
-import styled from './src/styled';
 import theme from './src/theme';
 import Home from './src/Home';
-
-const Container = styled(SafeAreaView)`
-  ${color};
-  ${flexbox};
-  ${space};
-`;
 
 const App = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -31,16 +23,15 @@ const App = () => {
     <ThemeProvider theme={theme}>
       {fontLoaded && (
         <AuthProvider>
-          <Container
-            bg="background"
-            alignItems="stretch"
-            alignSelf="stretch"
-            justifyContent="center"
+          <SafeAreaView
             css={`
               flex: 1;
+              flex-direction: column;
               justify-content: flex-start;
+              align-self: stretch;
+              align-items: stretch;
+              background-color: ${props => props.theme.colors.background};
             `}
-            flexDirection="column"
           >
             <StatusBar
               backgroundColor="#1a202c"
@@ -48,7 +39,7 @@ const App = () => {
               translucent={false}
             />
             <Home />
-          </Container>
+          </SafeAreaView>
         </AuthProvider>
       )}
     </ThemeProvider>

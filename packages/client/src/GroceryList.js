@@ -1,47 +1,46 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { FlatList, View, Text } from 'react-native';
-import { space, layout, color, typography } from 'styled-system';
-// import uuid from 'uuid/v4';
 import { useQuery } from '@apollo/react-hooks';
 
-import styled from './styled';
 import GroceryItem from './GroceryItem';
 import AddGrocery from './AddGrocery';
 import { QUERY_ITEMS } from './items.query';
 
-const GroceryList = styled(FlatList)`
-  ${space};
-`;
-
-const Separator = styled(View)`
-  ${space};
-  ${color};
-  ${layout};
-`;
-
 const ListSeparator = () => {
-  return <Separator height="fine" bg="gray.700" ml="3" />;
+  return (
+    <View
+      height="fine"
+      bg="gray.700"
+      ml="3"
+      css={`
+        height: ${props => props.theme.sizes.fine}px;
+        background-color: ${props => props.theme.colors.gray[700]};
+        margin-left: ${props => props.theme.space[3]}px;
+      `}
+    />
+  );
 };
-
-const Header = styled(Text)`
-  ${space};
-  ${color};
-  ${layout};
-  ${typography};
-`;
 
 const ListHeader = () => {
   return (
-    <Header
-      color="text"
-      bg="gray.800"
+    <Text
       accessibilityRole="header"
       aria-level="2"
-      fontSize="display"
+      color="text"
+      bg="gray.800"
       p="3"
+      fontSize="display"
+      css={`
+        color: ${props => props.theme.colors.text};
+        background-color: ${props => props.theme.colors.gray[800]};
+        padding: ${props => props.theme.space[3]}px;
+        font-family: nunito-bold;
+        font-size: ${props => props.theme.fontSizes[4]}px;
+        font-weight: 700;
+      `}
     >
       Grocery List
-    </Header>
+    </Text>
   );
 };
 
@@ -73,7 +72,7 @@ export default () => {
       `}
     >
       {items && items.length > 0 && (
-        <GroceryList
+        <FlatList
           ref={groceryList}
           data={items}
           keyExtractor={item => item.id}
