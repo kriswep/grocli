@@ -14,7 +14,15 @@ import { QUERY_ITEMS } from './items.query';
 
 export const SAVE_ITEM = gql`
   mutation SAVE_ITEM($name: String!) {
-    insert_items(objects: { name: $name }) {
+    insert_items(
+      objects: {
+        name: $name
+        user: {
+          data: {}
+          on_conflict: { constraint: user_pkey, update_columns: name }
+        }
+      }
+    ) {
       returning {
         id
         name
