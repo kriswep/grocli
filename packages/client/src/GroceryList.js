@@ -39,7 +39,7 @@ const ListHeader = () => {
         font-weight: 700;
       `}
     >
-      Grocery List
+      Grocli
     </Text>
   );
 };

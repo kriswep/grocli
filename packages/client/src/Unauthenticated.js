@@ -90,9 +90,9 @@ const Unauthenticated = () => {
           <Text
             css={`
               color: ${props => props.theme.colors.white};
-              font-family: nunito-bold;
+              font-family: nunito;
               font-size: ${props => props.theme.fontSizes[3]}px;
-              font-weight: 700;
+              font-weight: 400;
             `}
           >
             Sign Up
