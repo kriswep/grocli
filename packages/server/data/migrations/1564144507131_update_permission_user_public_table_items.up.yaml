@@ -2,8 +2,9 @@
     permission:
       columns:
       - done
-      - name
-      filter: {}
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
       localPresets:
       - key: updated_at
         value: now()

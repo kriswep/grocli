@@ -1,13 +1,15 @@
 - args:
     permission:
-      allow_aggregations: false
+      allow_aggregations: true
       columns:
       - created_at
       - done
       - id
       - name
       - updated_at
-      filter: {}
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
       limit: null
     role: user
     table:

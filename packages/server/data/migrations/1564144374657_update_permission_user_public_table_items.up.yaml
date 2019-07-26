@@ -6,9 +6,12 @@
       - done
       - name
       localPresets:
+      - key: user_id
+        value: x-hasura-User-Id
       - key: ""
         value: ""
-      set: {}
+      set:
+        user_id: x-hasura-User-Id
     role: user
     table:
       name: items

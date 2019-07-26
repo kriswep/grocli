@@ -1,15 +1,16 @@
 - args:
     permission:
-      allow_upsert: true
-      check: {}
       columns:
       - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
       localPresets:
       - key: ""
         value: ""
       set: {}
     role: user
     table:
-      name: users
+      name: user
       schema: public
-  type: create_insert_permission
+  type: create_update_permission

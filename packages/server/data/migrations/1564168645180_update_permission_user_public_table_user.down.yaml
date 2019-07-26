@@ -1,6 +1,6 @@
 - args:
     role: user
     table:
-      name: users
+      name: user
       schema: public
-  type: drop_insert_permission
+  type: drop_select_permission
