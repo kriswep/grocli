@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View, Text, Platform } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 
 import GroceryItem from './GroceryItem';
@@ -21,16 +21,20 @@ const ListSeparator = () => {
   );
 };
 
+// see: https://medium.com/appandflow/react-native-collapsible-navbar-e51a049b560a
+
+const absolutePostion = Platform.select({ web: 'fixed', default: 'absolute' });
 const ListHeader = () => {
   return (
     <Text
       accessibilityRole="header"
       aria-level="2"
-      color="text"
-      bg="gray.800"
-      p="3"
-      fontSize="display"
       css={`
+        position: ${absolutePostion};
+        top: 0;
+        right: 0;
+        left: 0;
+        height: ${props => props.theme.space[5]}px;
         color: ${props => props.theme.colors.text};
         background-color: ${props => props.theme.colors.gray[800]};
         padding: ${props => props.theme.space[3]}px;
@@ -78,10 +82,14 @@ export default () => {
           keyExtractor={item => item.id}
           renderItem={({ item }) => <GroceryItem grocery={item} />}
           ItemSeparatorComponent={ListSeparator}
-          ListHeaderComponent={ListHeader}
+          // ListHeaderComponent={ListHeader}
+          css={`
+            margin-top: ${props => props.theme.space[5]}px;
+          `}
         />
       )}
       <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
+      <ListHeader />
     </View>
   );
 };
