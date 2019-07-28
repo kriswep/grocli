@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
-import { FlatList, View, Animated } from 'react-native';
+import { FlatList, View, Animated, Platform } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 
 import GroceryItem from './GroceryItem';
 import AddGrocery from './AddGrocery';
 import { QUERY_ITEMS } from './items.query';
 import useHeaderAnimation from './AnimatedHeader';
+import theme from './theme';
 
 const ListSeparator = () => {
   return (
@@ -66,6 +67,7 @@ export default () => {
           keyExtractor={item => item.id}
           renderItem={({ item }) => <GroceryItem grocery={item} />}
           ItemSeparatorComponent={ListSeparator}
+          bounces="false"
           scrollEventThrottle={16}
           onMomentumScrollBegin={onMomentumScrollBegin}
           onMomentumScrollEnd={onMomentumScrollEnd}
@@ -74,6 +76,10 @@ export default () => {
           css={`
             padding-top: ${props => props.theme.space[5]}px;
           `}
+          contentContainerStyle={Platform.select({
+            ios: { paddingBottom: theme.space[5] },
+            default: {},
+          })}
         />
       )}
       <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
