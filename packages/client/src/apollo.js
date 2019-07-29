@@ -14,7 +14,7 @@ const SCHEMA_VERSION_KEY = 'apollo-schema-version';
  Offline support recipe: https://medium.com/twostoryrobot/a-recipe-for-offline-support-in-react-apollo-571ad7e6f7f4
 */
 
-const API_BASE_URL = API_BASE_URL_ENV || 'http://localhost:8080';
+const API_BASE_URL = API_BASE_URL_ENV || 'http://localhost:8080/';
 
 const makeApolloClient = async token => {
   // create an apollo link instance, a network interface for apollo client
@@ -35,7 +35,7 @@ const makeApolloClient = async token => {
     };
   }
   const http = new HttpLink({
-    uri: `${API_BASE_URL}/v1/graphql`,
+    uri: `${API_BASE_URL}v1/graphql`,
     headers,
   });
   const link = concat(retry, http);
