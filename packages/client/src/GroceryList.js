@@ -82,6 +82,14 @@ export default () => {
           })}
         />
       )}
+      {!items || items.length < 1 && (
+        <View
+          css={`
+            padding-top: ${props => props.theme.space[5]}px;
+            flex-grow: 1;
+          `}
+        />
+      )}
       <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
       <AnimatedListHeader />
     </View>
