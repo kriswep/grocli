@@ -19,7 +19,7 @@ export const SAVE_ITEM = gql`
         name: $name
         user: {
           data: {}
-          on_conflict: { constraint: user_pkey, update_columns: name }
+          on_conflict: { constraint: user_pkey, update_columns: last_seen }
         }
       }
     ) {
