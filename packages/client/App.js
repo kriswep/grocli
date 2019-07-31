@@ -3,6 +3,7 @@ import { SafeAreaView, StatusBar } from 'react-native';
 import * as Font from 'expo-font';
 import { ThemeProvider } from 'styled-components';
 
+import { SizeProvider } from './src/Size';
 import { AuthProvider } from './src/auth/authWrapper';
 import theme from './src/theme';
 import Home from './src/Home';
@@ -22,25 +23,27 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       {fontLoaded && (
-        <AuthProvider>
-          <SafeAreaView
-            css={`
-              flex: 1;
-              flex-direction: column;
-              justify-content: flex-start;
-              align-self: stretch;
-              align-items: stretch;
-              background-color: ${props => props.theme.colors.background};
-            `}
-          >
-            <StatusBar
-              backgroundColor="#1a202c"
-              barStyle="light-content"
-              translucent={false}
-            />
-            <Home />
-          </SafeAreaView>
-        </AuthProvider>
+        <SizeProvider>
+          <AuthProvider>
+            <SafeAreaView
+              css={`
+                flex: 1;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-self: stretch;
+                align-items: stretch;
+                background-color: ${props => props.theme.colors.background};
+              `}
+            >
+              <StatusBar
+                backgroundColor="#1a202c"
+                barStyle="light-content"
+                translucent={false}
+              />
+              <Home />
+            </SafeAreaView>
+          </AuthProvider>
+        </SizeProvider>
       )}
     </ThemeProvider>
   );
