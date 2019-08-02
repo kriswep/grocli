@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View, ImageBackground } from 'react-native';
+import React from 'react';
+import { TouchableOpacity, View, ScrollView } from 'react-native';
 
 import Text from './Text';
 import { useSizeState } from './Size';
@@ -35,6 +35,12 @@ const Unauthenticated = () => {
               `
               font-size: ${theme.fontSizes[7]}px;
             `}
+            ${({ dim, theme }) =>
+              dim.l &&
+              `
+              align-self: flex-start;
+              margin-left: ${theme.space[6]}px;
+            `}
           `}
         >
           Grocli
@@ -46,13 +52,15 @@ const Unauthenticated = () => {
           flex: 1;
         `}
       >
-        <View
+        <ScrollView
           css={`
             flex: 1;
             align-self: stretch;
-            align-items: center;
-            justify-content: center;
           `}
+          contentContainerStyle={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
           <Text
             dim={dimension}
@@ -67,6 +75,13 @@ const Unauthenticated = () => {
                 `
                 font-size: ${theme.fontSizes[5]}px;
                 padding: ${theme.space[6]}px ${theme.space[4]}px;
+              `}
+              ${({ dim, theme }) =>
+                dim.l &&
+                `
+                padding: ${theme.space[6]}px ${theme.space[6]}px;
+                text-align: left;
+                align-self: flex-start;
               `}
             `}
           >
@@ -88,7 +103,14 @@ const Unauthenticated = () => {
                 `
                 min-width: ${theme.sizes[7]}px;
                 padding: ${theme.space[3]}px;
-                margin-bottom: ${theme.space[5]}px;
+                margin-bottom: ${theme.space[4]}px;
+              `}
+              ${({ dim, theme }) =>
+                dim.l &&
+                `
+                align-self: flex-start;
+                margin: 0 ${theme.space[6]}px;
+                margin-bottom: ${theme.space[4]}px;
               `}
             `}
             onPress={() => auth.login()}
@@ -129,6 +151,13 @@ const Unauthenticated = () => {
                 min-width: ${theme.sizes[7]}px;
                 padding: ${theme.space[3]}px;
               `}
+              ${({ dim, theme }) =>
+                dim.l &&
+                `
+                align-self: flex-start;
+                margin: 0 ${theme.space[6]}px;
+                margin-bottom: ${theme.space[3]}px;
+              `}
             `}
             onPress={() => auth.login(true)}
           >
@@ -149,7 +178,7 @@ const Unauthenticated = () => {
               Sign Up
             </Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
         {dimension.l && (
           <View
             dim={dimension}
