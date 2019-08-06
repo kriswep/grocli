@@ -11,7 +11,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^0.1.0-beta.10",
+    "@apollo/react-hooks": "^3.0.0",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-cache-persist": "^0.1.1",
     "apollo-client": "^2.6.3",
@@ -24,7 +24,6 @@
     "graphql-tag": "^2.10.1",
     "jwt-decode": "^2.2.0",
     "react": "^16.8.6",
-    "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
     "react-is": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
