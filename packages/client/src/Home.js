@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { useAuthState } from './auth/authWrapper';

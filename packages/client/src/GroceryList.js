@@ -74,22 +74,24 @@ export default () => {
           onScrollEndDrag={onScrollEndDrag}
           onScroll={onScroll}
           css={`
+            flex-grow: 1;
             padding-top: ${props => props.theme.space[5]}px;
           `}
           contentContainerStyle={Platform.select({
-            ios: { paddingBottom: theme.space[5] },
-            default: {},
+            web: {},
+            default: { paddingBottom: theme.space[5] },
           })}
         />
       )}
-      {!items || items.length < 1 && (
-        <View
-          css={`
-            padding-top: ${props => props.theme.space[5]}px;
-            flex-grow: 1;
-          `}
-        />
-      )}
+      {!items ||
+        (items.length < 1 && (
+          <View
+            css={`
+              padding-top: ${props => props.theme.space[5]}px;
+              flex-grow: 1;
+            `}
+          />
+        ))}
       <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
       <AnimatedListHeader />
     </View>
