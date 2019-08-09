@@ -115,6 +115,7 @@ export default useHeaderAnimation;
 
 const styles = StyleSheet.create({
   navbar: {
+    zIndex: 1,
     position: absolutePosition,
     top: 0,
     left: 0,

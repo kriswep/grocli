@@ -60,6 +60,7 @@ export default () => {
         flex: 1;
       `}
     >
+      <AnimatedListHeader />
       {items && items.length > 0 && (
         <AnimatedFlatList
           ref={groceryList}
@@ -74,6 +75,7 @@ export default () => {
           onScrollEndDrag={onScrollEndDrag}
           onScroll={onScroll}
           css={`
+            flex-basis: ${props => props.theme.space[7]}px;
             flex-grow: 1;
             padding-top: ${props => props.theme.space[5]}px;
           `}
@@ -93,7 +95,6 @@ export default () => {
           />
         ))}
       <AddGrocery groceryAdded={groceryAdded} onFocus={scrollToListEnd} />
-      <AnimatedListHeader />
     </View>
   );
 };
