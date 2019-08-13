@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "web:build": "expo build:web",
+    "web:build": "BUILD_ENV=production expo build:web",
     "eject": "expo eject"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@expo/webpack-config": "^0.7.3",
     "babel-plugin-styled-components": "^1.10.6",
     "prettier": "^1.18.2"
   }
