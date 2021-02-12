@@ -17,7 +17,7 @@
     "apollo-client": "^2.6.3",
     "apollo-link-http": "^1.5.15",
     "apollo-link-retry": "^2.2.14",
-    "auth0-js": "^9.11.3",
+    "auth0-js": "^9.13.2",
     "expo": "^34.0.3",
     "expo-font": "^6.0.1",
     "graphql": "^14.4.2",
